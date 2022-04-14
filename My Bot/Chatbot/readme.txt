@@ -1,1 +1,1 @@
-You tell me.
+How's life so far?

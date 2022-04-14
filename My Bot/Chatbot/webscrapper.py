@@ -27,7 +27,11 @@ def getresponse():
         textbox = textboxmain.find_element_by_class_name("stimulus")
         
         #/THIS IS THE TEXT I WANT TO SEND
-        textbox.send_keys("Who's your daddy?")
+ 
+
+        text = open('C:\\Users\\StevenLi\\Desktop\\My Bot\\STT\\speachoutput.txt','r')
+
+        textbox.send_keys(text.read())
         textbox.send_keys(Keys.RETURN)
         time.sleep(5)
 

@@ -9,10 +9,15 @@ def texttospeech():
     tts = TextToSpeechV1(authenticator=authenticator)
     tts.set_service_url(url)
 
+
+
     with open('C:\\Users\\StevenLi\\Desktop\\My Bot\\Chatbot\\readme.txt', 'r') as f:
         text = f.readlines()
+        print(text)
     text = [line.replace('\n','') for line in text]
     text = ''.join(str(line) for line in text)
     with open('./response.mp3', 'wb') as audio_file:
-        res = tts.synthesize(text, accept='audio/mp3', voice='ja-JP_EmiV3Voice').get_result()
+        res = tts.synthesize(text, accept='audio/mp3', voice='en-US_LisaV3Voice').get_result()
         audio_file.write(res.content)
+
+texttospeech()
