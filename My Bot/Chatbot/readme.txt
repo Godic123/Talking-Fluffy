@@ -1,1 +1,1 @@
-How's life so far?
+Welcome to five nights at freddys.

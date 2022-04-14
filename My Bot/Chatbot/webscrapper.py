@@ -36,7 +36,6 @@ def getresponse():
         time.sleep(5)
 
         line1 = driver.find_element_by_id("line1")
-        driver.quit
         print(line1.text)
         with open('C:\\Users\\StevenLi\\Desktop\\My Bot\\Chatbot\\readme.txt', 'w') as f:
             f.write(line1.text)
@@ -44,7 +43,7 @@ def getresponse():
 
 
     finally:
-        driver.quit
+        print("Finished Task")
 
 
 
