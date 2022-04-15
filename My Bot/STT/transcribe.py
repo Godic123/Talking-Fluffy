@@ -130,7 +130,7 @@ def on_error(self, error):
     print(error)
 
 
-def on_close(ws):
+def on_close(ws, unused1=None, unused2=None):
     """Upon close, print the complete and final transcript."""
     global LAST
     if LAST:
