@@ -122,7 +122,7 @@ def on_message(self, msg):
         # This prints out the current fragment that we are working on
         print(data['results'][0]['alternatives'][0]['transcript'])
         try:
-            with open('C:\\Users\\StevenLi\\Desktop\\My Bot\\STT\\speachoutput.txt', 'w') as f:
+            with open('speachoutput.txt', 'w') as f:
                 f.write(data['results'][0]['alternatives'][0]['transcript'])
         except:
             pass

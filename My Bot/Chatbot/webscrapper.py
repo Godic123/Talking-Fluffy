@@ -7,8 +7,10 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 def getresponse():
-    PATH = "C:\Program Files (x86)\chromedriver.exe"
-    driver = webdriver.Chrome(PATH)
+    try:
+        driver = webdriver.Chrome("C:\Program Files (x86)\chromedriver.exe")
+    except:
+        driver = webdriver.Chrome("C:\\Users\\Sean\\Documents\\ChromeDriver\\chromedriver.exe")
 
     driver.get("https://www.eviebot.com/en/")
 
@@ -29,7 +31,7 @@ def getresponse():
         #/THIS IS THE TEXT I WANT TO SEND
  
 
-        text = open('C:\\Users\\StevenLi\\Desktop\\My Bot\\STT\\speachoutput.txt','r')
+        text = open('../STT/speachoutput.txt','r')
 
         textbox.send_keys(text.read())
         textbox.send_keys(Keys.RETURN)
@@ -37,7 +39,7 @@ def getresponse():
 
         line1 = driver.find_element_by_id("line1")
         print(line1.text)
-        with open('C:\\Users\\StevenLi\\Desktop\\My Bot\\Chatbot\\readme.txt', 'w') as f:
+        with open('../Chatbot/readme.txt', 'w') as f:
             f.write(line1.text)
 
 
@@ -46,4 +48,6 @@ def getresponse():
         print("Finished Task")
 
 
+if __name__ == "__main__":
+    getresponse()
 

@@ -11,7 +11,7 @@ def texttospeech():
 
 
 
-    with open('C:\\Users\\StevenLi\\Desktop\\My Bot\\Chatbot\\readme.txt', 'r') as f:
+    with open('../Chatbot/readme.txt', 'r') as f:
         text = f.readlines()
     text = [line.replace('\n','') for line in text]
     text = ''.join(str(line) for line in text)
@@ -19,4 +19,3 @@ def texttospeech():
         res = tts.synthesize(text, accept='audio/mp3', voice='en-US_LisaV3Voice').get_result()
         audio_file.write(res.content)
 
-texttospeech()

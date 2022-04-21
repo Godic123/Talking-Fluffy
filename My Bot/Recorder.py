@@ -16,7 +16,7 @@ swidth = 2
 
 TIMEOUT_LENGTH = 5
 
-f_name_directory = r'C:\Users\Jason\PyCharmProjects\AutoRecorder\records'
+# f_name_directory = r'./records'
 
 class Recorder:
 
@@ -58,19 +58,19 @@ class Recorder:
             rec.append(data)
         self.write(b''.join(rec))
 
-    def write(self, recording):
-        n_files = len(os.listdir(f_name_directory))
+    # def write(self, recording):
+    #     n_files = len(os.listdir(f_name_directory))
 
-        filename = os.path.join(f_name_directory, '{}.wav'.format(n_files))
+    #     filename = os.path.join(f_name_directory, '{}.wav'.format(n_files))
 
-        wf = wave.open(filename, 'wb')
-        wf.setnchannels(CHANNELS)
-        wf.setsampwidth(self.p.get_sample_size(FORMAT))
-        wf.setframerate(RATE)
-        wf.writeframes(recording)
-        wf.close()
-        print('Written to file: {}'.format(filename))
-        print('Returning to listening')
+    #     wf = wave.open(filename, 'wb')
+    #     wf.setnchannels(CHANNELS)
+    #     wf.setsampwidth(self.p.get_sample_size(FORMAT))
+    #     wf.setframerate(RATE)
+    #     wf.writeframes(recording)
+    #     wf.close()
+    #     print('Written to file: {}'.format(filename))
+    #     print('Returning to listening')
 
 
 
@@ -80,8 +80,8 @@ class Recorder:
             input = self.stream.read(chunk)
             rms_val = self.rms(input)
             if rms_val > Threshold:
-                self.record()
+                return
 
-a = Recorder()
-
-a.listen()
+# a = Recorder()
+# 
+# a.listen()
