@@ -101,6 +101,44 @@ def read_audio(ws, timeout):
     p.terminate()
 
 
+def print_finals(final_data, verbose=False):
+    if not verbose:
+        print("FINAL: " + final_data[-1]["results"][0]['alternatives'][0]['transcript'])
+        return
+    print("FINALS:")
+    print(final_data)
+
+
+def extract_final(fin):
+    return fin[-1]["results"][0]['alternatives'][0]['transcript']
+
+
+def on_message_ver2(self,msg):
+    """Print whatever messages come in.
+ 
+    While we are processing any non trivial stream of speech Watson
+    will start chunking results into bits of transcripts that it
+    considers "final", and start on a new stretch. It's not always
+    clear why it does this. However, it means that as we are
+    processing text, any time we see a final chunk, we need to save it
+    off for later.
+    """
+    global LAST
+    data = json.loads(msg)
+    if "results" in data:
+        if data["results"][0]["final"]:
+            FINALS.append(data)
+            print_finals(FINALS)
+            final_message = extract_final(FINALS)
+            fd = open("speech_stream", "w")
+            fd.write(final_message)
+            fd.close()
+            LAST = None
+        else:
+            LAST = data
+        print("DBG: " + data['results'][0]['alternatives'][0]['transcript'])
+
+
 def on_message(self, msg):
     """Print whatever messages come in.
 
@@ -134,14 +172,7 @@ def on_error(self, error):
 
 
 def on_close(ws, unused1=None, unused2=None):
-    """Upon close, print the complete and final transcript."""
-    global LAST
-    if LAST:
-        FINALS.append(LAST)
-    transcript = "".join([x['results'][0]['alternatives'][0]['transcript']
-                          for x in FINALS])
-    print(transcript)
-
+    pass
 
 def on_open(ws):
     """Triggered as soon a we have an active connection."""
@@ -213,7 +244,7 @@ def main():
     # websocket.enableTrace(True)
     ws = websocket.WebSocketApp(url,
                                 header=headers,
-                                on_message=on_message,
+                                on_message=on_message_ver2,
                                 on_error=on_error,
                                 on_close=on_close)
     ws.on_open = on_open
